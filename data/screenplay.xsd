@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:annotation>
+  <xs:documentation>
+    Batyr Screenplay Schema (Version 1.0)
+
+    Copyright (C) 2023  Gene Yu
+
+    This program is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option)
+    any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+    more details.
+
+    You should have received a copy of the GNU General Public License along with
+    this program.  If not, see &lt;https://www.gnu.org/licenses/>.
+  </xs:documentation>
+</xs:annotation>
+
+<xs:annotation>
+  <xs:documentation>
+    ================= Simple Attributes ========================================
+  </xs:documentation>
+</xs:annotation>
+
+<xs:attribute name="addition" type="xs:string">
+  <xs:annotation>
+    <xs:documentation>
+      for manual scene numbering
+    </xs:documentation>
+  </xs:annotation>
+</xs:attribute>
+
+<xs:attribute name="number" type="xs:integer">
+  <xs:annotation>
+    <xs:documentation>
+      for counting acts
+    </xs:documentation>
+  </xs:annotation>
+</xs:attribute>
+
+<xs:annotation>
+  <xs:documentation>
+    ================= Complex Attributes =======================================
+  </xs:documentation>
+</xs:annotation>
+
+<xs:attribute name="indent">
+  <xs:simpleType>
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="65"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:attribute>
+
+<xs:attribute name="numbering">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="none|left|right|full"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:attribute>
+
+<xs:annotation>
+  <xs:documentation>
+    ================= Simple Elements ==========================================
+  </xs:documentation>
+</xs:annotation>
+
+<xs:element name="br" type="xs:string" fixed="">
+  <xs:annotation>
+    <xs:documentation>
+      mandatory line break
+    </xs:documentation>
+  </xs:annotation>
+</xs:element>
+
+<xs:element name="em" type="xs:string">
+  <xs:annotation>
+    <xs:documentation>
+      emphasis
+    </xs:documentation>
+  </xs:annotation>
+</xs:element>
+
+<xs:annotation>
+  <xs:documentation>
+    ================= Complex Elements =========================================
+  </xs:documentation>
+</xs:annotation>
+
+<xs:element name="act">
+  <xs:annotation>
+    <xs:documentation>
+      act title
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+    <xs:attribute ref="number"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="authors">
+  <xs:annotation>
+    <xs:documentation>
+      sequence of personal names
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="fullName" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="body">
+  <xs:annotation>
+    <xs:documentation>
+      document body
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="act"/>
+      <xs:element ref="br"/>
+      <xs:element ref="close"/>
+      <xs:element ref="cue"/>
+      <xs:element ref="d"/>
+      <xs:element ref="dir"/>
+      <xs:element ref="end"/>
+      <xs:element ref="open"/>
+      <xs:element ref="p"/>
+      <xs:element ref="pageBreak"/>
+      <xs:element ref="slug"/>
+      <xs:element ref="trans"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="close">
+  <xs:annotation>
+    <xs:documentation>
+      act opening
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="contact">
+  <xs:annotation>
+    <xs:documentation>
+      contact information
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="cue">
+  <xs:annotation>
+    <xs:documentation>
+      character cue
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+    <xs:attribute ref="addition"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="d">
+  <xs:annotation>
+    <xs:documentation>
+      dialogue
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+    <xs:attribute ref="indent"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="dir">
+  <xs:annotation>
+    <xs:documentation>
+      personal direction
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="end">
+  <xs:annotation>
+    <xs:documentation>
+      transition
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="fullName">
+  <xs:annotation>
+    <xs:documentation>
+      a person's full name
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="head">
+  <xs:annotation>
+    <xs:documentation>
+      document header
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="series" minOccurs="0"/>
+      <xs:element ref="title"/>
+      <xs:element ref="authors"/>
+      <xs:element ref="note" minOccurs="0"/>
+      <xs:element ref="contact" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="note">
+  <xs:annotation>
+    <xs:documentation>
+      fly page note
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="open">
+  <xs:annotation>
+    <xs:documentation>
+      act opening
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="p">
+  <xs:annotation>
+    <xs:documentation>
+      stage direction
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+    <xs:attribute ref="indent"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="pageBreak" type="xs:string" fixed="">
+  <xs:annotation>
+    <xs:documentation>
+      mandatory page break
+    </xs:documentation>
+  </xs:annotation>
+</xs:element>
+
+<xs:element name="title">
+  <xs:annotation>
+    <xs:documentation>
+      title
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="trans">
+  <xs:annotation>
+    <xs:documentation>
+      transition
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="screenplay">
+  <xs:annotation>
+    <xs:documentation>
+      document root
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="head"/>
+      <xs:element ref="body"/>
+    </xs:sequence>
+    <xs:attribute ref="numbering"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="series">
+  <xs:annotation>
+    <xs:documentation>
+      series name
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="slug">
+  <xs:annotation>
+    <xs:documentation>
+      slug line
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="textElements"/>
+    </xs:choice>
+    <xs:attribute ref="number"/>
+    <xs:attribute ref="addition"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:annotation>
+  <xs:documentation>
+    ================= Groups ===================================================
+  </xs:documentation>
+</xs:annotation>
+
+<xs:group name="textElements">
+  <xs:choice>
+    <xs:element ref="br"/>
+    <xs:element ref="em"/>
+  </xs:choice>
+</xs:group>
+
+</xs:schema>

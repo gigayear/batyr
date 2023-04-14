@@ -1,0 +1,86 @@
+%!PS
+%%Title: @title@
+%%Creator: @creator@
+%%DocumentFonts: Courier
+%%BoundingBox: 0 0 612 792
+%%Pages: @pages@
+%%EndComments
+%%BeginProcSet: textset 1.0 0
+% begin a new page
+/page-begin {
+  gsave
+} def
+% end the current page
+/page-end {
+  grestore
+  showpage
+} def
+% show underlined
+/ushow {
+  gsave
+    currentfont /FontInfo get /UnderlinePosition get 100 div
+    0 exch rmoveto                      % move to underline position
+    dup stringwidth pop 0 rlineto       % create underline
+    currentfont /FontInfo get /UnderlineThickness get 100 div
+    setlinewidth stroke                 % draw underline
+  grestore
+  show
+} bind def
+% reencode a small number of characters in a given font.
+/reencsmalldict 12 dict def
+/ReEncodeSmall {
+  reencsmalldict
+  begin
+    /newcodesandnames exch def
+    /newfontname exch def
+    /basefontname exch def
+    /basefontdict basefontname findfont def
+    /newfont basefontdict maxlength dict def
+    basefontdict
+    { exch dup /FID ne
+      { dup /Encoding eq
+        { exch dup length array copy
+          newfont 3 1 roll put }
+        { exch newfont 3 1 roll put }
+        ifelse
+      }
+      { pop pop }
+      ifelse
+    } forall
+    newfont /FontName newfontname put
+    newcodesandnames aload pop
+    newcodesandnames length 2 idiv
+    { newfont /Encoding get 3 1 roll put }
+    repeat
+    newfontname newfont definefont pop
+  end
+} def
+% generate a Latin-1 encoding for Courier
+/Courier findfont
+0 dict copy begin
+/Encoding ISOLatin1Encoding def
+/CourierLatin1 /FontName def
+currentdict end
+dup /FID undef
+/CourierLatin1 exch definefont pop
+% mapping from Latin-1 to Latin-9
+/scandvec [
+  8#244 /Euro
+  8#246 /Scaron
+  8#250 /scaron
+  8#264 /Zcaron
+  8#270 /zcaron
+  8#274 /OE
+  8#275 /oe
+  8#276 /Ydieresis
+] def
+% generate the Latin-9 encoding
+/CourierLatin1 /CourierLatin9 scandvec ReEncodeSmall
+% set the current font
+/CourierLatin9 findfont 12 scalefont setfont
+% set the character width
+/cw { gsave (m) stringwidth pop grestore } def
+% set the baselineskip
+/bs 12 def
+%%EndProcSet
+%%EndProlog
