@@ -59,7 +59,7 @@
 //!   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 //!   xsi:noNamespaceSchemaLocation="http://www.matchlock.com/batyr/screenplay.xsd">
 //! $ wc -l goodrich.tyr
-//! 9886 goodrich.tyr
+//! 9909 goodrich.tyr
 //! $ xmllint --noout --schema screenplay.xsd goodrich.tyr
 //! goodrich.tyr validates
 //! $ batyr goodrich.tyr > goodrich.ps

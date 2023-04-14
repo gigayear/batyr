@@ -21,7 +21,9 @@
 <!--                                                                         -->
 <!-- Prepared by Gene Yu and last updated on 13 Apr 2023                     -->
 <!-- ======================================================================= -->
-<screenplay numbering="full">
+<screenplay numbering="full"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.matchlock.com/batyr/screenplay.xsd">
 <head>
   <title><em>IT'S A WONDERFUL LIFE</em></title>
   <authors>
